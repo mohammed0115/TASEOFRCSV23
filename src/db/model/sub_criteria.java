@@ -51,4 +51,9 @@ public class sub_criteria extends Model{
             
         }
     }
+    
+    public String toString()
+    {
+        return this.name;
+    }
 }

@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class Buiding extends Model
 {
     private String TableName="`Buiding`";
-   public static int Build_id;
+   public static int Build_id=100033;
     
     private String ColumnsList ="`id`,`Buiding_name`,  `Buiding_profile`, `location`, "
             + "`owner_id`, `date`, `buildingServiceAge`, `designBuildingAge`, "
@@ -121,7 +121,7 @@ public class Buiding extends Model
                 this.BeamCost=rs.getInt("BeamCost");
                 this.ColumnCost=rs.getInt("ColumnCost");
                 this.WallCost=rs.getInt("WallCost");
-                
+                Build_id=this.id;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Buiding.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,7 +153,7 @@ public class Buiding extends Model
                 this.BeamCost=rs.getInt("BeamCost");
                 this.ColumnCost=rs.getInt("ColumnCost");
                 this.WallCost=rs.getInt("WallCost");
-                
+                Build_id=this.id;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Buiding.class.getName()).log(Level.SEVERE, null, ex);
@@ -183,7 +183,7 @@ public class Buiding extends Model
                 this.BeamCost=rs.getInt("BeamCost");
                 this.ColumnCost=rs.getInt("ColumnCost");
                 this.WallCost=rs.getInt("WallCost");
-                
+                Build_id=this.id;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Buiding.class.getName()).log(Level.SEVERE, null, ex);
@@ -214,7 +214,7 @@ public class Buiding extends Model
                 this.BeamCost=rs.getInt("BeamCost");
                 this.ColumnCost=rs.getInt("ColumnCost");
                 this.WallCost=rs.getInt("WallCost");
-                
+                Build_id=this.id;
             }
         } catch (SQLException ex) {
             Logger.getLogger(Buiding.class.getName()).log(Level.SEVERE, null, ex);

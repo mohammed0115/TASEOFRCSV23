@@ -33,7 +33,8 @@ public abstract class Model extends mysql{
     public abstract void setParam(ResultSet rs);
     public javax.swing.JComboBox toDataCombobox(javax.swing.JComboBox jComboBox ,String Columns,String Condition) throws SQLException
     {     
-         this.getCon().close();
+         if(this.getCon()!=null)
+          this.getCon().close();
          this.rs=this.getDataByCondition(Columns, Condition);
          String[] data=FileClumn(this.getLength(Columns, Condition),this.rs,Columns);
          jComboBox.setModel(new javax.swing.DefaultComboBoxModel(
@@ -70,9 +71,9 @@ public abstract class Model extends mysql{
        Object [][] data=this.fillData(this.Length(), this.ColumnsList.split(",").length, rs);
        return this.toDataTable(jTable1,  data);
     }
-    public String[] FileClumn(int i,ResultSet rs,String Column) throws SQLException
+    public String[] FileClumn(int length,ResultSet rs,String Column) throws SQLException
     {
-        String data[]=new String[i];
+        String data[]=new String[length];
 //        System.out.println("rs==>"+rs.isClosed());
         int j=0;
         while(rs.next())
@@ -181,7 +182,6 @@ public abstract class Model extends mysql{
         this.ColumnsList = ColumnsList;
     }
     public String UPDATE_Table_SQL(String Condition,int id){
-        //UPDATE `user` SET `id`='[value-1]',`firstName`='[value-2]',`LastName`='[value-3]',`phone`='[value-4]' WHERE 1
     this.UPDATE_Table="UPDATE "+this.TableName+" SET ";
     
      String braces =" ";
@@ -199,7 +199,7 @@ public abstract class Model extends mysql{
     System.out.println("update query:"+this.UPDATE_Table);
     return this.UPDATE_Table;
     }
-    
+       
     public String UPDATE_Table_SQL(String Condition,String ColumnsList,int id){
         //UPDATE `user` SET `id`='[value-1]',`firstName`='[value-2]',`LastName`='[value-3]',`phone`='[value-4]' WHERE 1
     this.UPDATE_Table="UPDATE "+this.TableName+" SET ";
@@ -319,6 +319,12 @@ public abstract class Model extends mysql{
          this.con.close();
 	return id;
    } 
+   
+   public  ResultSet Select(String Query) throws SQLException{
+	  this.st =  CreateStatement();
+         ResultSet output=st.executeQuery(Query);
+	 return output;
+   }
     public int getFirstId() throws SQLException
     {
          this.st =  CreateStatement();
@@ -402,6 +408,18 @@ public abstract class Model extends mysql{
 
          return output;  
    } 
+   
+   public ResultSet Find(String Column,String  Condition) throws SQLException
+   {
+       
+	 this.st =  CreateStatement();
+	 String myquery="SELECT "+Column+" FROM "+this.getTableName()+" WHERE `"+Condition+";";
+	 System.out.println(""+myquery);
+         ResultSet output=st.executeQuery(myquery);
+         this.setParam(output);
+
+         return output;  
+   }
     
       public void executePrepared(String Query,Object data[],Connection con)
       {

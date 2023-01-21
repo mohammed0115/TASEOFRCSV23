@@ -5,19 +5,114 @@
  */
 package GUI;
 
+import static GUI.BeamColumnWalls.Model;
+import db.model.buildingclassification;
+import db.model.statecoditinclassification;
+import db.model.sub_criteria;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author user
  */
 public class Stepper extends javax.swing.JFrame {
-
+  public static int step=3;
     /**
      * Creates new form Stepper
      */
     public Stepper() {
         initComponents();
+        this.Stepper(step);
     }
+    
+  public void updateLabel(ArrayList<sub_criteria> data,buildingclassification classifer,int step) throws SQLException
+  {
+      int j=0;
+      for(int i=0; i<data.size();i++)
+          {
+              switch(i)
+              {
+                  case 0:
+                      {
+                        jLabel1.setText(""+data.get(i).name);
+                        classifer.toDataCombobox(jComboBox1, "StateCondition", "`StateCoditinClassification`="+step+" and `sub_criteria`="+data.get(i).id);
+                        jLabel1.setVisible(true);
+                        jComboBox1.setVisible(true);
+                        j++;
+                        break;
+                       }
+                  case 1:
+                      {
+                        jLabel2.setText(""+data.get(i).name);
+                        classifer.toDataCombobox(jComboBox2, "StateCondition", "`StateCoditinClassification`="+step+" and `sub_criteria`="+data.get(i).id);
+                        jLabel2.setVisible(true);
+                        jComboBox2.setVisible(true);
+                        j++;
+                        break;
+                       }
+                      
+                 case 2:
+                      {
+                        jLabel3.setText(""+data.get(i).name);
+                        classifer.toDataCombobox(jComboBox3, "StateCondition", "`StateCoditinClassification`="+step+" and `sub_criteria`="+data.get(i).id);
+                        jLabel3.setVisible(true);
+                        jComboBox3.setVisible(true);
+                        j++;
+                        break;
+                       }
+                  case 3:
+                      {
+                        jLabel4.setText(""+data.get(i).name);
+                        classifer.toDataCombobox(jComboBox4, "StateCondition", "`StateCoditinClassification`="+step+" and `sub_criteria`="+data.get(i).id);
+                        jLabel4.setVisible(true);
+                        jComboBox4.setVisible(true);
+                        j++;
+                        break;
+                       }
+                  case 4:
+                      {
+                        jLabel5.setText(""+data.get(i).name);
+                        classifer.toDataCombobox(jComboBox5, "StateCondition", "`StateCoditinClassification`="+step+" and `sub_criteria`="+data.get(i).id);
+                        jLabel5.setVisible(true);
+                        jComboBox5.setVisible(true);
+                        j++;
+                        break;
+                       }
+                  
+              }
+              
+          }
+      //hide label unwanted 
+//      
+      System.out.println("step======>>"+j);
 
+  }
+  public void Stepper(int step)
+  {
+       hideall();
+    statecoditinclassification state=new statecoditinclassification();
+      try {
+          state.Find(step);
+          jLabel6.setText("Step  "+step+":  "+state.name);
+          
+          state.getCon().close();
+          buildingclassification classifer=new buildingclassification();
+          ArrayList<sub_criteria> data=classifer.getCriteria(step);
+          this.updateLabel(data,classifer,step);
+          
+          
+          System.out.println(data.size());
+
+          
+      } catch (SQLException ex) {
+          Logger.getLogger(Stepper.class.getName()).log(Level.SEVERE, null, ex);
+      }
+   
+      
+  }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,8 +133,8 @@ public class Stepper extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        Next = new javax.swing.JButton();
+        Back = new javax.swing.JButton();
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -74,30 +169,51 @@ public class Stepper extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setText("jLabel6");
 
+        Next.setText("next");
+        Next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NextActionPerformed(evt);
+            }
+        });
+
+        Back.setText("Back");
+        Back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BackActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(64, 64, 64))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(242, 242, 242)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(657, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(179, 179, 179)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Back, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Next, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(161, 161, 161))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jComboBox5, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(64, 64, 64))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,11 +240,105 @@ public class Stepper extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jComboBox5, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Next, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+                    .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(42, 42, 42))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    
+    public void hideall()
+    {
+         jLabel1.setVisible(false);
+         jComboBox1.setVisible(false);
+         jLabel2.setVisible(false);
+         jComboBox2.setVisible(false);
+         jLabel3.setVisible(false);
+         jComboBox3.setVisible(false);
+         jLabel4.setVisible(false);
+         jComboBox4.setVisible(false);
+         jLabel5.setVisible(false);
+         jComboBox5.setVisible(false);
+    }
+    private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
+       step--;
+       if (step==7||step==8)
+        {
+             java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BeamWallColumnSlabsIssues().setVisible(true);
+            }
+        });
+             this.setVisible(false);
+        }
+       if (step==12||step==13)
+        {
+             java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LastStepper().setVisible(true);
+            }
+        });
+             this.setVisible(false);
+        }
+        if(step<3)
+        {
+            step=3;
+            PhysicalLossFrame l = null;
+            try {
+                l = new PhysicalLossFrame();
+                //            l.setBuilding(Model);
+                  PhysicalLossFrame.setBuilding(Model);
+      //            l.Updater();
+                  l.setVisible(rootPaneCheckingEnabled);
+                  this.setVisible(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(Stepper.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        else
+        {
+            
+            
+            this.Stepper(step);
+        }
+        
+     
+
+
+
+
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_BackActionPerformed
+
+    private void NextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextActionPerformed
+        step++;
+        if (step==7||step==8)
+        {
+             java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new BeamWallColumnSlabsIssues().setVisible(true);
+            }
+        });
+             this.setVisible(false);
+        }
+        
+   
+        else
+        {
+           
+                
+            this.Stepper(step);
+        }
+
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_NextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,6 +376,8 @@ public class Stepper extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Back;
+    private javax.swing.JButton Next;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;

@@ -7,6 +7,7 @@ package GUI;
 
 import db.model.Beams;
 import db.model.Buiding;
+import static db.model.Buiding.Build_id;
 import db.model.columns;
 import db.model.slabs;
 import db.model.walls;
@@ -37,6 +38,24 @@ public class BeamColumnWalls extends javax.swing.JFrame {
      */
     public BeamColumnWalls() {
         initComponents();
+           try {
+               Model=new Buiding();
+               Model.Find(Buiding.Build_id);
+               this.numberOfFlour.setText(""+Model.numberOfFlour);
+               this.TotalSlabNum.setText(""+Model.TotalSlabNum);
+               this.TotalBeamNum.setText(""+Model.TotalBeamNum);
+               this.TotalColumnNum.setText(""+Model.TotalColumnNum);
+               this.TotalWallNum.setText(""+Model.TotalWallNum);
+               this.BeamCost.setText(""+Model.BeamCost);
+               this.SlabsCost.setText(""+Model.SlabsCost);
+               this.ColumnCost.setText(""+Model.ColumnCost);
+               this.WallCost.setText(""+Model.WallCost);
+           } catch (SQLException ex) {
+               Logger.getLogger(BeamColumnWalls.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        
+        
+        
     }
 
     /**
@@ -70,8 +89,6 @@ public class BeamColumnWalls extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
@@ -156,7 +173,7 @@ public class BeamColumnWalls extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 845, Short.MAX_VALUE)
+                    .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel26, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -238,7 +255,7 @@ public class BeamColumnWalls extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(260, 260, 260)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 891, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +269,9 @@ public class BeamColumnWalls extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
